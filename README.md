@@ -52,7 +52,7 @@ def get_department_by_link(address: str) -> Union[str, None]:
             return link.attrs['title'].strip()
     return None
 
-# buildings : pd.DataFrame
+# buildings : _the_ pd.DataFrame
 i = buildings.loc[buildings.address == 'www.imm.ox.ac.uk'].index[0]
 department = get_department_by_link('www.imm.ox.ac.uk')
 buildings.at[i, 'department'] = department
@@ -66,3 +66,49 @@ The "NDCN" will result in
 "Project to Investigate Memory and Ageing, The Oxford - OPTIMA"
 but in reality it is the Nuffield Department of Clinical Neurosciences as
 it includes stuff like ophthalmology.
+
+## Email list
+Here is an example snippet using the above:
+
+```python3
+import pandas as pd
+
+with open('mailing_list.txt') as fh:
+    emails = [e.strip() for e in fh.readlines() if e.strip()]
+
+subscribers = pd.DataFrame({'email': emails})
+subscribers = pd.concat([subscribers,
+                         subscribers.email.str.extract('^(?P<name>.*)@(?P<domain>.*)$')
+                        ],
+                        axis='columns')
+specials = {'har.mrc.ac.uk': 'Harwell MRC', 
+            'nhs.net': 'Oxford University Hospitals',
+           }
+
+def get_name(domain: str) -> str:
+    matches = buildings.loc[buildings.address.str.contains(domain)]
+    if len(matches):
+        return matches.name.values[0]
+    elif domain in specials:
+        return specials[domain]
+    else:
+        raise KeyValue(domain)
+
+def get_department(domain: str) -> str:
+    if domain in specials:
+        return specials[domain]
+    matches = buildings.loc[buildings.address.str.contains(domain)]
+    if len(matches) == 0:
+        raise KeyValue(domain)
+    if 'college' in matches['rank'].values:
+        return 'college'
+    if 'department' in matches['rank'].values:
+        return matches.loc[~matches.name.isna()].name.values[0]
+    departments = matches.loc[~matches.department.isna()].department.values
+    if len(departments) > 0:
+        return departments[0]
+    print(matches)
+subscribers['unit'] = subscribers.domain.apply(get_name)
+subscribers['department'] = subscribers.domain.apply(get_department)
+```
+
