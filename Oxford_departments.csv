@@ -151,7 +151,7 @@
 149,"Business Economics Programme, Oxford University",oubep.econ.ox.ac.uk,,,
 150,"Epidemiology Unit, Cancer Research UK ",www.ceu.ox.ac.uk,,,
 151,"Carbon and Energy Reduction in Transport, Institute for",www.icert.ox.ac.uk,,,
-152,"Cardiovascular Medicine, Division of",www.cardiov.ox.ac.uk,,,
+152,"Cardiovascular Medicine, Division of",www.cardiov.ox.ac.uk,,,"Medicine, Radcliffe Department of"
 153,Careers Service,www.careers.ox.ac.uk,,,
 154,"Chemical Biology, Laboratory",bayley.chem.ox.ac.uk,,,
 155,"Crystallography, Chemical, Laboratory",www.xtl.ox.ac.uk,,,
@@ -210,7 +210,7 @@
 208,Libraries (Oxford University Library Services),www.bodleian.ox.ac.uk,,,
 209,"Lifelong Learning, Technology-Assisted (Department for Continuing Education)",www.tall.ox.ac.uk,,,
 210,Medical Sciences Teaching Centre,www.mstc.ox.ac.uk,,,
-211,"Medicine, Molecular, Weatherall Institute of",www.imm.ox.ac.uk,,,
+211,"Medicine, Molecular, Weatherall Institute of",www.imm.ox.ac.uk,,,"Medicine, Radcliffe Department of"
 212,"Natural History, Oxford University Museum of",www.oum.ox.ac.uk,,,
 213,Nuffield Department of Obstetrics and Gynaecology,www.obs-gyn.ox.ac.uk,,,
 214,"Ophthalmology, Nuffield Laboratory of",www.eye.ox.ac.uk,,,
@@ -244,8 +244,11 @@
 242,"Sport, Oxford University Sport",www.sport.ox.ac.uk,,,
 243,"Stem Cell Institute, Oxford",www.stemcells.ox.ac.uk,,,
 244,Stroke Prevention Research Unit,www.stroke.ox.ac.uk,,,
-245,Structural Genomics Consortium,www.sgc.ox.ac.uk,,,
+245,Centre for Medicines Discovery (CMD),www.sgc.ox.ac.uk,,,"Clinical Medicine, Nuffield Department of"
 246,Transport Studies Unit,www.tsu.ox.ac.uk,,,
 247,"War, Oxford Leverhulme Programme on the Changing Character of",www.ccw.ox.ac.uk,,,
 248,Wellcome Unit for the History of Medicine,www.wuhmo.ox.ac.uk,,,
 249,Wildlife Conservation Research Unit (WildCRU),www.wildcru.org,,,
+250,Oxford University Hospitals NHS Foundation Trust,ouh.nhs.uk,,,
+251,Nuffield Laboratory of Ophthalmology,www.eye.ox.ac.uk,,,"Clinical Neurosciences, Nuffield Department of"
+252,Nuffield Division of Clinical Laboratory Sciences,www.ndcls.ox.ac.uk,,,"Clinical Neurosciences, Nuffield Department of"

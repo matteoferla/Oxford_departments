@@ -24,9 +24,45 @@ It is out of date however: as a result several units have their names taken from
 
 Notes:
 
-* My department NDM is huge and contains many units within it hence why it was parsed.
-* STRUBI is a unit within a department, but calls itself a division (normally the topmost category)
-* The Department of Continuing Education is a division
-* The SGC was rebranded as the CMD, but is present in departments-a_z.
+My department NDM is huge and contains many units within it hence why it was parsed. 
 
+STRUBI and NDCLS are units within departments, but calls itself a division (normally the topmost category)
 
+The Department of Continuing Education is a division 
+
+The SGC was rebranded as the CMD, but is present in departments-a_z.
+
+`ouh.nhs.uk` was added manually as technically OUH NHS FT is not a departament.
+
+The data is not perfect. So some fixes are required in the data as parsed.
+For example, the code did not parse the WIMM, which is part of the Radcliffe Department of Medicine
+and not the Nuffield Department of Medicine.
+
+```python3
+import requests
+from bs4 import BeautifulSoup
+from typing import *
+
+def get_department_by_link(address: str) -> Union[str, None]:
+    reply = requests.get('https://' + address)
+    assert reply.status_code == 200
+    soup = BeautifulSoup(reply.text, 'html.parser')
+    for link in soup.find_all('a'):  #type: Tag
+        if 'title' in link.attrs and 'epartment' in link.attrs['title']:
+            return link.attrs['title'].strip()
+    return None
+
+# buildings : pd.DataFrame
+i = buildings.loc[buildings.address == 'www.imm.ox.ac.uk'].index[0]
+department = get_department_by_link('www.imm.ox.ac.uk')
+buildings.at[i, 'department'] = department
+```
+
+This trick is rather shoddy as the name may not match
+and will not work for all: `www.cardiov.ox.ac.uk` redirects to `RDM`.
+I ended up fixing manually (see [parser.py](parser.py)).
+
+The "NDCN" will result in 
+"Project to Investigate Memory and Ageing, The Oxford - OPTIMA"
+but in reality it is the Nuffield Department of Clinical Neurosciences as
+it includes stuff like ophthalmology.

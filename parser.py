@@ -120,6 +120,36 @@ for div in soup.find_all('div'):  # type: Tag
                 departments.append(dict(name=name,
                                         address=address))
 
-df = pd.DataFrame(departments)
-df.to_csv('Oxford_departments.csv')
-df.to_json('Oxford_departments.json')
+# ## Add ouh.nhs.uk manually.
+departments.append(dict(name='Oxford University Hospitals NHS Foundation Trust',
+                        address='ouh.nhs.uk'
+                       )
+                  )
+departments.append(dict(name='Nuffield Laboratory of Ophthalmology',
+                        address='www.eye.ox.ac.uk',
+                        department='Clinical Neurosciences, Nuffield Department of'
+                       )
+                  )
+departments.append(dict(name='Nuffield Division of Clinical Laboratory Sciences',
+                        address='www.ndcls.ox.ac.uk',
+                        department='Clinical Neurosciences, Nuffield Department of'
+                       )
+                  )
+
+buildings = pd.DataFrame(departments)
+
+# ## Fixes easier done in pandas
+dep_assignments = {'www.imm.ox.ac.uk': {'department': 'Medicine, Radcliffe Department of'},
+                'www.cardiov.ox.ac.uk': {'department': 'Medicine, Radcliffe Department of'},
+                'sgc.ox.ac.uk': {'department': 'Clinical Medicine, Nuffield Department of',
+                                 'name': 'Centre for Medicines Discovery (CMD)'},
+                'www.ndcn.ox.ac.uk': {'name': 'Clinical Neurosciences, Nuffield Department of'}}
+
+for address, deets in dep_assignments.items():
+    print(address)
+    i = buildings.loc[buildings.address.str.contains(address)].index[0]
+    for k, v in deets.items():
+        buildings.at[i, k] = v
+
+buildings.to_csv('Oxford_departments.csv')
+buildings.to_json('Oxford_departments.json', orient='records')
